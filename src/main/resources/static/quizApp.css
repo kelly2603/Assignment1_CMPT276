@@ -64,12 +64,14 @@ body {
     color: #fff;
 }
 
-.correct{
-    background: #9aeabc;
-}
-
 .incorrect{
     background: #ff9393;
+    color: #222;
+}
+
+.correct{
+    background: #9aeabc;
+    color: #222;
 }
 
 .nav-btns{
