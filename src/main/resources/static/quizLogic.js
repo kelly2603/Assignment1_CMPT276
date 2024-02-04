@@ -105,15 +105,7 @@ function showQuestion(){
     }else{
         prevButton.style.display = "inline-block"
     }
-    if(currentQuestionIndex<arrivedQuestionIndex){
-        Array.from(answerButtons.children).forEach(button => {
-            if(button.dataset.correct === "true"){
-                button.classList.add("correct");
-            }
-            button.disabled = true;
-        })
-    }
-    
+
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
         button.innerHTML = answer.text;
@@ -122,7 +114,18 @@ function showQuestion(){
         if(answer.correct){
             button.dataset.correct = answer.correct;
         }
-        button.addEventListener("click", selectAnswer);
+        //check if the user is currently looking back at answers or answering a new question
+        if(currentQuestionIndex >= arrivedQuestionIndex){
+            button.addEventListener("click", selectAnswer);
+        }else{
+            if(button.dataset.correct === "true"){
+                button.classList.add("correct");
+            }
+            button.disabled = true;
+            nextButton.style.display = "inline-block";
+            nextButton.innerHTML = "Next";
+        }
+        
     })
 }
 
@@ -137,6 +140,7 @@ function resetState(){
 function selectAnswer(e){
     const selectedBtn = e.target;
     const isCorrect = selectedBtn.dataset.correct === "true";
+    arrivedQuestionIndex++;
     if(isCorrect){
         score++;
         selectedBtn.classList.add("correct");
@@ -172,9 +176,7 @@ function displayAnswers(){
 
 function handleNextButton(){
     currentQuestionIndex++;
-    if(currentQuestionIndex>arrivedQuestionIndex){
-        arrivedQuestionIndex = currentQuestionIndex;
-    }
+    
     if(currentQuestionIndex < questions.length){
         showQuestion();
     }else{

@@ -85,14 +85,6 @@ body {
     justify-content: space-between;
 }
 
-#next-btn{
-    text-align: right;
-}
-
-#prev-btn{
-    text-align: left;
-}
-
 #correct-answers{
     font-size: 17px;
     color:#001e4d;
